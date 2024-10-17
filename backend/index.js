@@ -21,17 +21,18 @@ let notes = [
   ]
 
 
-const requestLogger = (request, response, next) => {
-  console.log("Method:", request.method)
-  console.log("Path:", request.path)
-  console.log("Body:", request.body)
-  console.log('---')
-  next()
-}
+// const requestLogger = (request, response, next) => {
+//   console.log("Method:", request.method)
+//   console.log("Path:", request.path)
+//   console.log("Body:", request.body)
+//   console.log('---')
+//   next()
+// }
 
 app.use(cors())
 app.use(express.json())
-app.use(requestLogger)
+app.use(express.static('dist'))
+//app.use(requestLogger)
 
 const generateId = () => {
   const maxId = notes.length > 0
@@ -82,6 +83,14 @@ app.delete('/api/notes/:id', (req, res) => {
     notes = notes.filter(note => note.id !== id)
     res.status(204).end()
 })
+
+// app.put('/api/notes/:id', (req, res) => {
+//   const id = req.params.id
+//   const noteTobeUpdated = notes.find(note => note.id === id)
+//   noteTobeUpdated.content = req.content
+//   noteTobeUpdated.important = req.important
+//   console.log("Updated Note is : ", noteTobeUpdated)
+// })
 
 const unKnownEndPoint = (request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
