@@ -60,24 +60,24 @@ app.use(express.static('dist'))
 //   return String(maxId + 1)
 // }
 
-// app.post('/api/notes', (req, res) => {
+app.post('/api/notes', (req, res) => {
 
-//   const body = req.body
+  const body = req.body
 
-//   if(!body.content){
-//     return res.status(400).json({
-//       error: 'content missing'
-//     })
-//   }
+  if(!body.content){
+    return res.status(400).json({
+      error: 'content missing'
+    })
+  }
 
-//   const note = {
-//     content: body.content,
-//     important: Boolean(body.important) || false,
-//     id: generateId(),
-//   }
-//   notes = notes.concat(note)
-//   res.json(note)
-// })
+  const note = new Note({
+    content: body.content,
+    important: body.important || false,
+  })
+  note.save().then(savedNote => {
+    res.json(savedNote)
+  })
+})
 
 app.get('/', (req, res) => {
     res.send('<h1>Hello World!</h1>')
@@ -89,15 +89,11 @@ app.get('/api/notes', (req, res) => {
   })    
 })
 
-// app.get('/api/notes/:id', (req, res) => {
-//     const id = req.params.id
-//     const note = notes.find(note => note.id === id)
-//     if(note){
-//         res.json(note)
-//     }else{
-//         res.status(404).end()
-//     }
-// })
+app.get('/api/notes/:id', (req, res) => {
+    Note.findById(req.params.id).then(note => {
+      res.json(note)
+    })
+})
 
 // app.delete('/api/notes/:id', (req, res) => {
 //     const id = req.params.id
