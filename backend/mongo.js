@@ -7,7 +7,7 @@ if (process.argv.length<3) {
 
 const password = process.argv[2]
 
-console.log("password", password)
+console.log('password', password)
 
 const url =
   `mongodb+srv://fullstack:${password}@cluster0.g9sia.mongodb.net/notesdb`
@@ -29,10 +29,10 @@ const Note = mongoose.model('Note', noteSchema)
 // })
 
 Note.find({}).then(result => {
-    result.forEach(note => {
-      console.log(note)
-    })
-    mongoose.connection.close()
+  result.forEach(note => {
+    console.log(note)
+  })
+  mongoose.connection.close()
 })
 
 // note.save().then(result => {

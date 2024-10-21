@@ -19,9 +19,9 @@ mongoose.connect(url)
 
 
 const requestLogger = (request, response, next) => {
-  console.log("Method:", request.method)
-  console.log("Path:", request.path)
-  console.log("Body:", request.body)
+  console.log('Method:', request.method)
+  console.log('Path:', request.path)
+  console.log('Body:', request.body)
   console.log('---')
   next()
 }
@@ -33,12 +33,12 @@ app.use(requestLogger)
 
 app.get('/', (req, res) => {
   res.send('<h1>Hello World!</h1>')
-})  
+})
 
 app.get('/api/notes', (req, res) => {
   Note.find({}).then(notes => {
     res.json(notes)
-  })    
+  })
 })
 
 app.get('/api/notes/:id', (req, res, next) => {
@@ -49,7 +49,7 @@ app.get('/api/notes/:id', (req, res, next) => {
       res.status(404).end()
     }
   })
-  .catch(error => next(error))
+    .catch(error => next(error))
 })
 
 app.post('/api/notes', (req, res, next) => {
@@ -63,7 +63,7 @@ app.post('/api/notes', (req, res, next) => {
   note.save().then(savedNote => {
     res.json(savedNote)
   })
-  .catch(error => next(error))
+    .catch(error => next(error))
 })
 
 app.delete('/api/notes/:id', (request, response, next) => {
@@ -77,7 +77,7 @@ app.delete('/api/notes/:id', (request, response, next) => {
 app.put('/api/notes/:id', (request, response, next) => {
   const { content, important } = request.body
 
-  Note.findByIdAndUpdate(request.params.id, {content, important}, { new: true, runValidators: true, context: 'query' })
+  Note.findByIdAndUpdate(request.params.id, { content, important }, { new: true, runValidators: true, context: 'query' })
     .then(updatedNote => {
       response.json(updatedNote)
     })
@@ -107,5 +107,5 @@ app.use(errorHandler)
 const PORT = process.env.PORT
 
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`)
+  console.log(`Server is running on port ${PORT}`)
 })
