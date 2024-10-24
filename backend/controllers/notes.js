@@ -2,53 +2,39 @@ const notesRouter = require('express').Router()
 const Note = require('../models/note')
 
 
-notesRouter.get('/', (req, res) => {
-  Note.find({}).then(notes => {
-    res.json(notes)
-  })
+notesRouter.get('/', async (request, response) => {
+  const notes = await Note.find({})
+  response.json(notes)
 })
 
-notesRouter.get('/:id', (req, res, next) => {
-  Note.findById(req.params.id).then(note => {
-    if(note){
-      res.json(note)
-    } else {
-      res.status(404).end()
-    }
-  })
-    .catch(error => next(error))
+notesRouter.get('/:id', async (request, response) => {
+  const note = await Note.findById(request.params.id)
+  if(note) {
+    response.json(note)
+  } else {
+    response.status(404).end()
+  }
 })
 
-notesRouter.post('/', (req, res, next) => {
-
-  const body = req.body
-
+notesRouter.post('/', async (request, response) => {
+  const body = request.body
   const note = new Note({
     content: body.content,
     important: body.important || false,
   })
-  note.save().then(savedNote => {
-    res.json(savedNote)
-  })
-    .catch(error => next(error))
+  const savedNote = await note.save()
+  response.status(201).json(savedNote)
 })
 
-notesRouter.delete('/:id', (request, response, next) => {
-  Note.findByIdAndDelete(request.params.id)
-    .then(result => {
-      response.status(204).end()
-    })
-    .catch(error => next(error))
+notesRouter.delete('/:id', async (request, response) => {
+  await Note.findByIdAndDelete(request.params.id)
+  response.status(204).end()
 })
 
-notesRouter.put('/:id', (request, response, next) => {
+notesRouter.put('/:id', async (request, response) => {
   const { content, important } = request.body
-
-  Note.findByIdAndUpdate(request.params.id, { content, important }, { new: true, runValidators: true, context: 'query' })
-    .then(updatedNote => {
-      response.json(updatedNote)
-    })
-    .catch(error => next(error))
+  const updatedNote = await Note.findByIdAndUpdate(request.params.id, { content, important }, { new: true, runValidators: true, context: 'query' })
+  response.json(updatedNote)
 })
 
 module.exports = notesRouter
