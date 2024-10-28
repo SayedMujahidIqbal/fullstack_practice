@@ -1,6 +1,8 @@
 POST http://localhost:3001/api/notes
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhanUiLCJpZCI6IjY3MWY3NmVlYjlmM2FiY2EwMDhhMjk0NSIsImlhdCI6MTczMDExNjkwMH0.ma8tVsT5OfW1W-k4iAiWHXqwzzRIS4BqDmKcmLhLBSk
 
 {
+    "content":"Sajid created its first note",
     "important": true
 }
