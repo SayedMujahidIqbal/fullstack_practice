@@ -1,6 +1,7 @@
 import React from 'react'
 
-const Note = ({ note, toggleImportance }) => {
+const Note = (props) => {
+  const { note, toggleImportance } = props
   const label = note.important ? 'make not important' : 'make important'
   
   return (

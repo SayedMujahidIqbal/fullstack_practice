@@ -10,6 +10,9 @@ export default [
       sourceType: "commonjs",
       globals: {
         ...globals.node,
+        ...globals.jest,
+        ...globals.commonjs,
+        ...globals.es2021
       },
       ecmaVersion: "latest",
     },
