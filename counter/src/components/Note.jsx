@@ -14,11 +14,11 @@ const Notes = () => {
     const dispatch = useDispatch()
     const notes = useSelector(({filter, notes}) => {
       if(filter === 'ALL'){
-        return notes.notes
+        return notes
       }
       return filter === 'IMPORTANT'
-      ? notes.notes.filter(note => note.important)
-      : notes.notes.filter(note => !note.important)
+      ? notes.filter(note => note.important)
+      : notes.filter(note => !note.important)
     })
     return(
         <ul>
