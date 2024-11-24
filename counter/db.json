@@ -14,6 +14,21 @@
       "id": "7fbb",
       "content": "new note added",
       "important": false
+    },
+    {
+      "id": "9c18",
+      "content": "new note added again",
+      "important": false
+    },
+    {
+      "id": "20e8",
+      "content": "another note",
+      "important": false
+    },
+    {
+      "id": "e5b8",
+      "content": "after making updates",
+      "important": false
     }
   ]
 }
