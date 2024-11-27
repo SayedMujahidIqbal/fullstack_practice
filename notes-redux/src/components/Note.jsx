@@ -1,12 +1,13 @@
 import { useDispatch, useSelector } from "react-redux"
 import { toggleImportanceOf } from "../reducers/noteReducer"
+import { Link, Paper, Table, TableBody, TableCell, TableContainer, TableRow } from "@mui/material"
 
 const Note = ({ note, handleClick }) => {
   return (
-    <li onClick={handleClick}>
-        <span>{note.content}</span>
-        <strong>{note.important ? 'important' : ''}</strong>
-    </li>
+    <Link onClick={handleClick} style={{ textDecoration: 'none' }}>
+        {note.content}
+        {note.important ? 'important' : ''}
+    </Link>
   )
 }
 
@@ -21,17 +22,27 @@ const Notes = () => {
       : notes.filter(note => !note.important)
     })
     return(
-        <ul>
-        {
-          notes.map(note => 
-           <Note
-                key={note.id}
-                note={note}
-                handleClick={() => dispatch(toggleImportanceOf(note.id))} 
-           />
-          )
-        }
-      </ul>
+        <TableContainer component={Paper}>
+          <Table>
+            <TableBody>
+            {
+              notes.map(note =>(
+                <TableRow key={note.id} >
+                    <TableCell>
+                      <Note
+                          note={note}
+                          handleClick={() => dispatch(toggleImportanceOf(note.id))} 
+                      />
+                    </TableCell>
+                    <TableCell>
+                      {note.user}
+                    </TableCell>
+                </TableRow>
+              ))
+            }
+            </TableBody>
+          </Table>
+        </TableContainer>
     )
 }
 

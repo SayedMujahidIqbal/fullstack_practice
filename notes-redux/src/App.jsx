@@ -3,8 +3,9 @@ import { useDispatch } from "react-redux"
 import NewNote from "./components/NewNote"
 import Notes from "./components/Note"
 import VisibilityFilter from "./components/VisibilityFilter"
-import noteService from './services/notes'
 import { initializeNotes } from "./reducers/noteReducer"
+import { Container } from "@mui/material"
+import Navbar from "./components/Navbar"
 
 const App = () => {
   const dispatch = useDispatch()
@@ -14,12 +15,13 @@ const App = () => {
   }, [])
 
   return (
-    <div>
+    <Container>
+      <Navbar />
       <h2>Notes</h2>
       <NewNote />
       <VisibilityFilter />
       <Notes />     
-    </div>
+    </Container>
   )
 }
 export default App
