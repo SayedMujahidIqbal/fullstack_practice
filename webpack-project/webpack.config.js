@@ -1,3 +1,4 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 
 const config = () => {
@@ -13,13 +14,16 @@ const config = () => {
             port: 3000
         },
         devtool: 'source-map',
+        plugins: [new HtmlWebpackPlugin({
+            filename: 'index.html'
+        })],
         module: {
             rules: [
                 {
                     test: /\.js$/,
                     loader: 'babel-loader',
                     options: {
-                        presets: ['@babel/preset-react', '@babel/preset-env'],
+                        presets: ['@babel/preset-env', '@babel/preset-react'],
                     },
                 },
                 {
